@@ -1,0 +1,10 @@
+<h1 style="text-align: center;">Heroes Service</h1>
+<div class="form-container">
+    <form [formGroup]="form_search" (ngSubmit)="onSubmit()">
+        <label for="campo">Nome do herói:</label>
+        <input type="text" placeholder="Nome" required formControlName="name">
+        <button type="submit">Finalizar</button>
+    </form>
+</div>
+<div>
+</div>
