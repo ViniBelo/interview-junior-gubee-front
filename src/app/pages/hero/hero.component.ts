@@ -29,11 +29,14 @@ export class HeroComponent implements OnInit {
   }
 
   onSubmit() {
-    this.findByName(this.form_search.controls['name'].value).subscribe(
-      hero => {
-        console.log(hero)
-        this.hero = hero
-      }
-    )
+    if (this.form_search.valid) {
+      this.findByName(this.form_search.controls['name'].value).subscribe(
+        hero => {
+          console.log(hero)
+          this.hero = hero
+        })
+    } else {
+      alert("Preencha todos os campos")
+    }
   }
 }
