@@ -1,10 +1,29 @@
 <h1 style="text-align: center;">Heroes Service</h1>
+
+<div class="create_hero">
+    <label for="create">Want to add a new hero?</label>
+    <button (click)="goToCreateComponent()">Create a new Hero</button>
+</div>
+
 <div class="form-container">
     <form [formGroup]="form_search" (ngSubmit)="onSubmit()">
-        <label for="campo">Nome do herói:</label>
-        <input type="text" placeholder="Nome" formControlName="name">
+        <label for="campo">Search hero by name:</label>
+        <input type="text" placeholder="Hero's name" formControlName="name">
         <button type="submit">Finalizar</button>
     </form>
 </div>
-<div>
-</div>
+
+<div class="card" *ngIf="hero">
+    <div class="form-container">
+        <h2>Name: {{ hero.name }}</h2>
+        <h2>Race: {{ hero.race }}</h2>
+        <h2>Strength: {{ hero.strength }}</h2>
+        <h2>Agility: {{ hero.agility }}</h2>
+        <h2>Dexterity: {{ hero.dexterity }}</h2>
+        <h2>Intelligence: {{ hero.intelligence }}</h2>
+        <div class="buttons">
+            <button id="edit-btn" (click)="goToEditComponent(hero)">Editar</button>
+            <button id="delete-btn" (click)="delete()">Excluir</button>
+        </div>
+    </div>
+</div> 

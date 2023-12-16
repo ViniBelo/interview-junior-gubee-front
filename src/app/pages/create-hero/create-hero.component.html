@@ -1,0 +1,38 @@
+<h1 style="text-align: center;">Heroes Service</h1>
+<div class="form-container">
+    <form class="hero-form" [formGroup]="form_create" (ngSubmit)="onSubmit()">
+        <label for="campo">Add a hero:</label>
+        <input type="text" placeholder="Name" formControlName="name">
+        <div>
+            <label for="raceSelect">Race: </label>
+            <select formControlName="race" id="raceSelect" [(ngModel)]="selectedRace" name="selectedRace">
+                <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="strengthSelect">Strength: </label>
+            <select formControlName="strength" id="strengthSelect" [(ngModel)]="selectedStrength" name="selectedStrength">
+                <option *ngFor="let strength of numbers" [value]="strength">{{ strength }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="agilitySelect">Agility: </label>
+            <select formControlName="agility" id="agilitySelect" [(ngModel)]="selectedAgility" name="selectedStrength">
+                <option *ngFor="let agility of numbers" [value]="agility">{{ agility }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="dexteritySelect">Dexterity: </label>
+            <select formControlName="dexterity" id="dexteritySelect" [(ngModel)]="selectedDexterity" name="selectedStrength">
+                <option *ngFor="let dexterity of numbers" [value]="dexterity">{{ dexterity }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="intelligenceSelect">Intelligence: </label>
+            <select formControlName="intelligence" id="intelligenceSelect" [(ngModel)]="selectedIntelligence" name="selectedStrength">
+                <option *ngFor="let intelligence of numbers" [value]="intelligence">{{ intelligence }}</option>
+            </select>
+        </div>
+        <button type="submit">Finalizar</button>
+    </form>
+</div>
