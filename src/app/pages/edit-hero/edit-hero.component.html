@@ -1,6 +1,6 @@
 <h1 style="text-align: center;">Heroes Service</h1>
 <div class="form-container">
-    <form class="hero-form" [formGroup]="form_edit" (ngSubmit)="onSubmit()">
+    <form class="hero-form" [formGroup]="form_edit" (ngSubmit)="openConfirmation(editModal)">
         <label for="campo">Add a hero:</label>
         <input type="text" id="name" placeholder="Name" [(ngModel)]="heroName" formControlName="name">
         <div>
@@ -36,3 +36,15 @@
         <button type="submit">Finalizar</button>
     </form>
 </div>
+
+<ng-template #editModal>
+    <div class="modal-body text-center">
+      <p>Do you want to confirm?</p>
+      <button type="button" class="btn btn-default" (click)="onSubmit()">
+        Yes
+      </button>
+      <button type="button" class="btn btn-primary" (click)="decline()">
+        No
+      </button>
+    </div>
+  </ng-template>
