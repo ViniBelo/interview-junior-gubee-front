@@ -52,9 +52,7 @@ export class HeroComponent implements OnInit {
   }
 
   goToEditComponent(hero: Hero) {
-    if (hero != null) {
-      this.router.navigateByUrl('/edit', {state: {objeto: hero}})
-    }
+    this.router.navigateByUrl('/edit', {state: {objeto: hero}})
   }
 
   goToCreateComponent() {

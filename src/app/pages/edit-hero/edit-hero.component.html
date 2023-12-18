@@ -2,7 +2,7 @@
 <div class="form-container">
     <form class="hero-form" [formGroup]="form_edit" (ngSubmit)="onSubmit()">
         <label for="campo">Add a hero:</label>
-        <input type="text" placeholder="Name" formControlName="name">
+        <input type="text" id="name" placeholder="Name" [(ngModel)]="heroName" formControlName="name">
         <div>
             <label for="raceSelect">Race: </label>
             <select formControlName="race" id="raceSelect" [(ngModel)]="selectedRace" name="selectedRace">

@@ -14,10 +14,6 @@ export class HeroServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getHero(): Hero {
-    return this.hero
-  }
-
   deleteById(id: string) {
     return this.httpClient.delete(`${this._url}/${id}`).subscribe()
   }
@@ -38,9 +34,12 @@ export class HeroServiceService {
       })
     )
   }
-  
+
+  updateHeroInformation(id: string, hero: Hero) {
+    return this.httpClient.put<Hero>(`${this._url}/${id}`, hero).subscribe()
+  }
 
   createHero(hero: Hero) {
-    this.httpClient.post(this._url, hero).subscribe()
+    return this.httpClient.post(this._url, hero).subscribe()
   }
 }
