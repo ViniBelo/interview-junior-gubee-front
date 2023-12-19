@@ -1,0 +1,56 @@
+<div class="form-container">
+  <form [formGroup]="form_compare" (ngSubmit)="onSubmit()">
+    <label for="campo">Search hero by name:</label>
+    <input type="text" placeholder="Hero's name" formControlName="name" />
+    <button type="submit">Finalizar</button>
+  </form>
+</div>
+
+<div class="cards-container">
+  <div class="card" *ngIf="hero1">
+    <div class="form-container">
+      <h2>Name: {{ hero1.name }}</h2>
+      <h2>Race: {{ hero1.race }}</h2>
+      <h2>Strength: {{ hero1.strength }}</h2>
+      <h2>Agility: {{ hero1.agility }}</h2>
+      <h2>Dexterity: {{ hero1.dexterity }}</h2>
+      <h2>Intelligence: {{ hero1.intelligence }}</h2>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="heroesComparation">
+    <div class="form-container">
+      <h2>Compared Power Stats</h2>
+      <h2>Strength: {{ heroesComparation.strength }}</h2>
+      <h2>Agility: {{ heroesComparation.agility }}</h2>
+      <h2>Dexterity: {{ heroesComparation.dexterity }}</h2>
+      <h2>Intelligence: {{ heroesComparation.intelligence }}</h2>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="hero2">
+    <div class="form-container">
+      <h2>Name: {{ hero2.name }}</h2>
+      <h2>Race: {{ hero2.race }}</h2>
+      <h2>Strength: {{ hero2.strength }}</h2>
+      <h2>Agility: {{ hero2.agility }}</h2>
+      <h2>Dexterity: {{ hero2.dexterity }}</h2>
+      <h2>Intelligence: {{ hero2.intelligence }}</h2>
+    </div>
+  </div>
+</div>
+
+<ng-template #adviceModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Hero</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">There is no hero with this name.</div>
+</ng-template>

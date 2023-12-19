@@ -8,7 +8,7 @@ body {
 
 .create_hero {
     text-align: center;
-    margin-top: 20px; /* Ajuste conforme necessário para o espaçamento desejado */
+    margin-top: 20px;
 
     label {
         display: block;
@@ -84,6 +84,14 @@ body {
     }
 
     #edit-btn {
+        background-color: rgb(147, 147, 147);
+
+        &:hover {
+            background-color: grey;
+        }
+    }
+
+    #compare-btn {
         background-color: rgb(147, 147, 147);
 
         &:hover {

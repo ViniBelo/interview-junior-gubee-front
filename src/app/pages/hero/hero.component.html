@@ -1,4 +1,4 @@
-<h1 style="text-align: center">Heroes Service</h1>
+<h1 style="text-align: center">Heroes App Front</h1>
 
 <div class="create_hero">
   <label for="create">Want to add a new hero?</label>
@@ -22,9 +22,12 @@
     <h2>Dexterity: {{ hero.dexterity }}</h2>
     <h2>Intelligence: {{ hero.intelligence }}</h2>
     <div class="buttons">
-      <button id="edit-btn" (click)="goToEditComponent(hero)">Editar</button>
+      <button id="edit-btn" (click)="goToEditComponent(hero)">Edit</button>
+      <button id="compare-btn" (click)="goToCompareComponent(hero)">
+        Compare
+      </button>
       <button id="delete-btn" (click)="openConfirmation(deleteModal)">
-        Excluir
+        Delete
       </button>
     </div>
   </div>
@@ -40,4 +43,19 @@
       No
     </button>
   </div>
+</ng-template>
+
+<ng-template #adviceModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Hero</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">There is no hero with this name.</div>
 </ng-template>

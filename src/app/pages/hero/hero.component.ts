@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,6 +21,7 @@ import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
   styleUrl: './hero.component.scss',
 })
 export class HeroComponent implements OnInit {
+  @ViewChild('adviceModal') adviceModal: TemplateRef<any>;
   modalRef?: BsModalRef;
   form_search: FormGroup;
   hero: Hero;
@@ -51,10 +52,15 @@ export class HeroComponent implements OnInit {
       this.findByName(this.form_search.controls['name'].value).subscribe(
         (hero) => {
           this.hero = hero;
+          if (!this.hero) {
+            this.modalRef = this.modalService.show(this.adviceModal, {
+              class: 'modal-sm',
+            });
+          }
         }
       );
     } else {
-      alert('Preencha todos os campos');
+      alert('Fill all fields');
     }
   }
 
@@ -74,6 +80,10 @@ export class HeroComponent implements OnInit {
 
   goToEditComponent(hero: Hero) {
     this.router.navigateByUrl('/edit', { state: { objeto: hero } });
+  }
+
+  goToCompareComponent(hero: Hero) {
+    this.router.navigateByUrl('/compare', { state: { objeto: hero } });
   }
 
   goToCreateComponent() {

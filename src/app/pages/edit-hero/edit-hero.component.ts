@@ -45,7 +45,7 @@ export class EditHeroComponent implements OnInit {
     if (nav && nav.extras && nav.extras.state) {
       this.hero = nav.extras.state['objeto'];
     } else {
-      console.error('Erro ao obter o estado de navegação.');
+      console.error("Error getting navigation state.");
     }
   }
 
@@ -76,7 +76,10 @@ export class EditHeroComponent implements OnInit {
 
   onSubmit() {
     this.modalRef?.hide();
-    this.heroService.updateHeroInformation(this.hero.id, this.form_edit.value);
+    if (this.hero != this.form_edit.value) {
+      console.log("Changed")
+      this.heroService.updateHeroInformation(this.hero.id, this.form_edit.value);
+    }
     this.router.navigateByUrl('');
   }
 }

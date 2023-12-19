@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Hero } from '../interfaces/hero';
 import { Observable, tap } from 'rxjs';
+import { ComparedHeroes } from '../interfaces/compared-heroes';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Observable, tap } from 'rxjs';
 export class HeroServiceService {
   private _url = environment.api
   private hero: Hero
+  private comparedHeroes: ComparedHeroes
 
   constructor(private httpClient: HttpClient) { }
 
@@ -41,5 +43,9 @@ export class HeroServiceService {
 
   createHero(hero: Hero) {
     return this.httpClient.post(this._url, hero).subscribe()
+  }
+
+  compareHeroes(id1: string, id2: string) {
+    return this.httpClient.get<ComparedHeroes>(`${this._url}/${id1}/${id2}`)
   }
 }
