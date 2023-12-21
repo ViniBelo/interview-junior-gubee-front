@@ -11,11 +11,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ModalModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ModalModule,
+    MatTableModule,
+    MatIconModule,
+    MatToolbarModule,
+  ],
   providers: [HeroServiceService, HeroComponent, BsModalService],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
@@ -25,19 +36,63 @@ export class HeroComponent implements OnInit {
   modalRef?: BsModalRef;
   form_search: FormGroup;
   hero: Hero;
-
+  heroes: Hero[] = [];
+  selectedHeroes: Hero[] = [];
+  
   constructor(
     private formBuilder: FormBuilder,
     private heroService: HeroServiceService,
     private router: Router,
     private modalService: BsModalService
-  ) {}
-
-  ngOnInit() {
-    this.form_search = this.formBuilder.group({
-      name: ['', Validators.required],
-    });
-  }
+    ) {
+      
+    }
+    
+    ngOnInit() {
+      this.form_search = this.formBuilder.group({
+        name: ['', Validators.required],
+      });
+      this.findByName('batman').subscribe(
+        (hero) => {
+          this.hero = hero;
+          this.heroes.push(hero);
+          if (!this.hero) {
+            this.modalRef = this.modalService.show(this.adviceModal, {
+              class: 'modal-sm',
+            });
+          }
+        }
+      );
+      this.findByName('wonder woman').subscribe(
+        (hero) => {
+          this.hero = hero;
+          this.heroes.push(hero);
+          if (!this.hero) {
+            this.modalRef = this.modalService.show(this.adviceModal, {
+              class: 'modal-sm',
+            });
+          }
+        }
+      );
+      this.findByName('green lantern').subscribe(
+        (hero) => {
+          this.hero = hero;
+          this.heroes.push(hero);
+          if (!this.hero) {
+            this.modalRef = this.modalService.show(this.adviceModal, {
+              class: 'modal-sm',
+            });
+          }
+        }
+      );
+    }
+    toggleHeroSelection(hero: Hero) {
+      if (this.selectedHeroes.includes(hero)) {
+        this.selectedHeroes = this.selectedHeroes.filter((h) => h !== hero);
+      } else {
+        this.selectedHeroes.push(hero);
+      }
+    }
 
   findByName(name: string) {
     return this.heroService.findByName(name);
@@ -52,6 +107,7 @@ export class HeroComponent implements OnInit {
       this.findByName(this.form_search.controls['name'].value).subscribe(
         (hero) => {
           this.hero = hero;
+          this.heroes.push(hero);
           if (!this.hero) {
             this.modalRef = this.modalService.show(this.adviceModal, {
               class: 'modal-sm',
@@ -72,9 +128,10 @@ export class HeroComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  delete() {
+  delete(hero: Hero) {
     this.modalRef?.hide();
     window.location.reload();
+    this.heroes = this.heroes.filter((h) => h !== hero);
     this.deleteById();
   }
 
@@ -82,8 +139,8 @@ export class HeroComponent implements OnInit {
     this.router.navigateByUrl('/edit', { state: { objeto: hero } });
   }
 
-  goToCompareComponent(hero: Hero) {
-    this.router.navigateByUrl('/compare', { state: { objeto: hero } });
+  goToCompareComponent(heroes: Hero[]) {
+    this.router.navigateByUrl('/compare', { state: { objeto: heroes } });
   }
 
   goToCreateComponent() {
