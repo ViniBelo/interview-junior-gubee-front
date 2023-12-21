@@ -8,7 +8,26 @@
     <input type="text" placeholder="Hero's name" formControlName="name" />
     <button id="search-btn" type="submit">Search</button>
   </form>
-  <button (click)="goToCreateComponent()">Create a new Hero</button>
+</div>
+
+<div class="card" *ngIf="hero">
+  <div class="form-container">
+    <h2>Name: {{ hero.name }}</h2>
+    <h2>Race: {{ hero.race }}</h2>
+    <h2>Strength: {{ hero.strength }}</h2>
+    <h2>Agility: {{ hero.agility }}</h2>
+    <h2>Dexterity: {{ hero.dexterity }}</h2>
+    <h2>Intelligence: {{ hero.intelligence }}</h2>
+    <div class="buttons">
+      <button id="edit-btn" (click)="goToEditComponent(hero)">Edit</button>
+      <button id="compare-btn" (click)="goToCompareComponent(hero)">
+        Compare
+      </button>
+      <button id="delete-btn" (click)="openConfirmation(deleteModal)">
+        Delete
+      </button>
+    </div>
+  </div>
 </div>
 
 <ng-template #deleteModal>
