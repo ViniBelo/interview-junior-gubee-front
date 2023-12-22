@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  NgModel,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -53,6 +52,7 @@ export class CreateHeroComponent {
   onSubmit() {
     if (this.form_create.valid) {
       this.heroService.createHero(this.form_create.value);
+      this.heroService.getAll();
       this.router.navigateByUrl('');
     } else {
       alert('Preencha todos os campos');

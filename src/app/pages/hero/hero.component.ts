@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormGroup,
   ReactiveFormsModule,
@@ -9,14 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ModalModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ModalModule,
+  ],
   providers: [HeroServiceService, HeroComponent, BsModalService],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
@@ -26,7 +28,7 @@ export class HeroComponent implements OnInit {
   modalRef?: BsModalRef;
   form_search: FormGroup;
   hero: Hero;
-  heroes: Hero[] = [];
+  heroes: Hero[] = this.getAll();
   selectedHeroes: Hero[] = [];
 
   constructor(
@@ -34,11 +36,11 @@ export class HeroComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService
   ) {
-    this.getAll();
+    this.heroes = this.getAll();
   }
 
-  ngOnInit() {
-    this.getAll();
+  ngOnInit(): void {
+    
   }
 
   toggleHeroSelection(hero: Hero) {
@@ -50,15 +52,15 @@ export class HeroComponent implements OnInit {
   }
 
   getAll() {
-    this.heroes = this.heroService.getAll();
+    return this.heroService.getAll();
   }
 
   findByName(name: string) {
     return this.heroService.findByName(name);
   }
 
-  deleteById() {
-    return this.heroService.deleteById(this.hero.id);
+  deleteById(hero: Hero) {
+    return this.heroService.deleteById(hero.id);
   }
 
   openConfirmation(template: TemplateRef<any>, hero: Hero) {
@@ -70,18 +72,20 @@ export class HeroComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  delete() {
+  delete(hero: Hero) {
+    this.deleteById(hero);
+    this.heroes = this.heroes.filter((h) => h !== hero);
+    this.selectedHeroes = this.selectedHeroes.filter((h) => h !== hero);
     this.modalRef?.hide();
-    window.location.reload();
-    this.deleteById();
   }
+  
 
   goToEditComponent(hero: Hero) {
     this.router.navigateByUrl('/edit', { state: { objeto: hero } });
   }
 
-  goToCompareComponent(hero: Hero) {
-    this.router.navigateByUrl('/compare', { state: { objeto: hero } });
+  goToCompareComponent(heroes: Hero[]) {
+    this.router.navigateByUrl('/compare', { state: { objeto: heroes } });
   }
 
   goToCreateComponent() {
