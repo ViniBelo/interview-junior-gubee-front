@@ -1,6 +1,9 @@
-<mat-toolbar>
-  <span>Heroes App</span>
-</mat-toolbar>
+<h1 style="text-align: center">Heroes App Front</h1>
+
+<div class="create_hero">
+  <label for="create">Want to add a new hero?</label>
+  <button (click)="goToCreateComponent()">Create a new Hero</button>
+</div>
 
 <div class="form-container">
   <button (click)="goToCreateComponent()">Create a new Hero</button>
@@ -9,7 +12,7 @@
 <ng-template #deleteModal>
   <div class="modal-body text-center" ng-controller="getAll()">
     <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="delete(hero)">
+    <button type="button" class="btn btn-default" (click)="delete()">
       Yes
     </button>
     <button type="button" class="btn btn-primary" (click)="decline()">

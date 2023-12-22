@@ -16,15 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ModalModule,
-    MatTableModule,
-    MatIconModule,
-    MatToolbarModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ModalModule],
   providers: [HeroServiceService, HeroComponent, BsModalService],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
@@ -78,10 +70,9 @@ export class HeroComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  delete(hero: Hero) {
+  delete() {
     this.modalRef?.hide();
     window.location.reload();
-    this.heroes = this.heroes.filter((h) => h !== hero);
     this.deleteById();
   }
 
@@ -89,8 +80,8 @@ export class HeroComponent implements OnInit {
     this.router.navigateByUrl('/edit', { state: { objeto: hero } });
   }
 
-  goToCompareComponent(heroes: Hero[]) {
-    this.router.navigateByUrl('/compare', { state: { objeto: heroes } });
+  goToCompareComponent(hero: Hero) {
+    this.router.navigateByUrl('/compare', { state: { objeto: hero } });
   }
 
   goToCreateComponent() {

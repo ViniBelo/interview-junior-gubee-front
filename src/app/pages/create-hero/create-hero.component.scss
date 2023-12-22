@@ -15,7 +15,6 @@ body {
 .form-container {
     max-width: 400em;
     text-align: center;
-    margin: 20px;
 
     form {
         display: flex;
@@ -29,7 +28,6 @@ body {
         input {
             padding: 8px;
             margin-bottom: 16px;
-            border-radius: 10px;
         }
 
         button {
@@ -38,7 +36,7 @@ body {
             margin: 1em;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 4px;
             cursor: pointer;
 
             &:hover {
@@ -49,7 +47,7 @@ body {
         select {
             box-sizing: border-box;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 4px;
             margin: 1em;
             cursor: pointer;
         }
