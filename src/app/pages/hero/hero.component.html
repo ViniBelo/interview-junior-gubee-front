@@ -1,12 +1,15 @@
-<mat-toolbar>
-  <span>Heroes App</span>
-</mat-toolbar>
+<h1 style="text-align: center">Heroes App Front</h1>
+
+<div class="create_hero">
+  <label for="create">Want to add a new hero?</label>
+  <button (click)="goToCreateComponent()">Create a new Hero</button>
+</div>
 
 <div class="form-container">
   <form [formGroup]="form_search" (ngSubmit)="onSubmit()">
     <label for="campo">Search hero by name:</label>
     <input type="text" placeholder="Hero's name" formControlName="name" />
-    <button id="search-btn" type="submit">Search</button>
+    <button type="submit">Finalizar</button>
   </form>
 </div>
 
@@ -33,7 +36,7 @@
 <ng-template #deleteModal>
   <div class="modal-body text-center">
     <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="delete(hero)">
+    <button type="button" class="btn btn-default" (click)="delete()">
       Yes
     </button>
     <button type="button" class="btn btn-primary" (click)="decline()">
@@ -56,56 +59,3 @@
   </div>
   <div class="modal-body">There is no hero with this name.</div>
 </ng-template>
-
-<ng-template #compareModal>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Hero</h4>
-    <button
-      type="button"
-      class="btn-close close pull-right"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    >
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">There is no hero with this name.</div>
-</ng-template>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Race</th>
-      <th scope="col">Strength</th>
-      <th scope="col">Agility</th>
-      <th scope="col">Dexterity</th>
-      <th scope="col">Intelligence</th>
-      <th>
-        <button [disabled]="selectedHeroes.length < 2" id="compare-btn" (click)="goToCompareComponent(selectedHeroes)">
-          Compare selected heroes
-        </button>
-      </th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let hero of heroes">
-    <tr>
-      <td> {{ hero.name }} </td>
-      <td> {{ hero.race }} </td>
-      <td> {{ hero.strength }} </td>
-      <td> {{ hero.agility }} </td>
-      <td> {{ hero.dexterity }} </td>
-      <td> {{ hero.intelligence }} </td>
-      <td>
-        <div class="buttons">
-          <label>
-            <input [disabled]="selectedHeroes.length === 2 && !selectedHeroes.includes(hero)" type="checkbox" (change)="toggleHeroSelection(hero)" [checked]="selectedHeroes.includes(hero)">
-          </label>
-          <button id="edit-btn" (click)="goToEditComponent(hero)">Edit</button>
-          <button id="delete-btn" (click)="openConfirmation(deleteModal)">
-            Delete
-          </button>
-        </div>
-      </td>
-    </tr>
-</table>

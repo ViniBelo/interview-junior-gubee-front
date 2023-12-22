@@ -25,7 +25,6 @@ export class CompareHeroesComponent implements OnInit {
   @ViewChild('adviceModal') adviceModal: TemplateRef<any>;
   modalRef?: BsModalRef;
   form_compare: FormGroup;
-  heroes: Hero[];
   hero1: Hero;
   hero2: Hero;
   heroesComparation: ComparedHeroes;
@@ -38,19 +37,7 @@ export class CompareHeroesComponent implements OnInit {
   ) {
     const nav = this.router.getCurrentNavigation();
     if (nav && nav.extras && nav.extras.state) {
-      this.heroes = nav.extras.state['objeto'];
-      this.hero1 = this.heroes.at(0)!;
-      this.hero2 = this.heroes.at(1)!;
-      this.compareHeroes(this.hero1.id, this.hero2.id).subscribe(
-        (comparedStats) => {
-          this.heroesComparation = comparedStats;
-          if (!this.hero2) {
-            this.modalRef = this.modalService.show(this.adviceModal, {
-              class: 'modal-sm',
-            });
-          }
-        }
-      );
+      this.hero1 = nav.extras.state['objeto'];
     } else {
       console.error('Error getting navigation state.');
     }
