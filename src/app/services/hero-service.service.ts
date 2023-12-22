@@ -12,12 +12,22 @@ import { ComparedHeroes } from '../interfaces/compared-heroes';
 export class HeroServiceService {
   private _url = environment.api
   private hero: Hero
+  private heroes: Hero[]
   private comparedHeroes: ComparedHeroes
 
   constructor(private httpClient: HttpClient) { }
 
   deleteById(id: string) {
     return this.httpClient.delete(`${this._url}/${id}`).subscribe()
+  }
+
+  getAll() {
+    this.httpClient.get<Hero[]>(this._url).subscribe(
+      res => {
+        this.heroes = res
+      }
+    )
+    return this.heroes;
   }
 
   findById(id: string) {

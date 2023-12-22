@@ -3,16 +3,11 @@
 </mat-toolbar>
 
 <div class="form-container">
-  <form [formGroup]="form_search" (ngSubmit)="onSubmit()">
-    <label for="campo">Search hero by name:</label>
-    <input type="text" placeholder="Hero's name" formControlName="name" />
-    <button id="search-btn" type="submit">Search</button>
-  </form>
   <button (click)="goToCreateComponent()">Create a new Hero</button>
 </div>
 
 <ng-template #deleteModal>
-  <div class="modal-body text-center">
+  <div class="modal-body text-center" ng-controller="getAll()">
     <p>Do you want to confirm?</p>
     <button type="button" class="btn btn-default" (click)="delete(hero)">
       Yes
@@ -83,7 +78,7 @@
             <input [disabled]="selectedHeroes.length === 2 && !selectedHeroes.includes(hero)" type="checkbox" (change)="toggleHeroSelection(hero)" [checked]="selectedHeroes.includes(hero)">
           </label>
           <button id="edit-btn" (click)="goToEditComponent(hero)">Edit</button>
-          <button id="delete-btn" (click)="openConfirmation(deleteModal)">
+          <button id="delete-btn" (click)="openConfirmation(deleteModal, hero)">
             Delete
           </button>
         </div>

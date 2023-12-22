@@ -1,9 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Hero } from '../../interfaces/hero';
 import { HeroServiceService } from '../../services/hero-service.service';
@@ -13,7 +11,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-hero',
@@ -38,61 +36,30 @@ export class HeroComponent implements OnInit {
   hero: Hero;
   heroes: Hero[] = [];
   selectedHeroes: Hero[] = [];
-  
+
   constructor(
-    private formBuilder: FormBuilder,
     private heroService: HeroServiceService,
     private router: Router,
     private modalService: BsModalService
-    ) {
-      
+  ) {
+    this.getAll();
+  }
+
+  ngOnInit() {
+    this.getAll();
+  }
+
+  toggleHeroSelection(hero: Hero) {
+    if (this.selectedHeroes.includes(hero)) {
+      this.selectedHeroes = this.selectedHeroes.filter((h) => h !== hero);
+    } else {
+      this.selectedHeroes.push(hero);
     }
-    
-    ngOnInit() {
-      this.form_search = this.formBuilder.group({
-        name: ['', Validators.required],
-      });
-      this.findByName('batman').subscribe(
-        (hero) => {
-          this.hero = hero;
-          this.heroes.push(hero);
-          if (!this.hero) {
-            this.modalRef = this.modalService.show(this.adviceModal, {
-              class: 'modal-sm',
-            });
-          }
-        }
-      );
-      this.findByName('wonder woman').subscribe(
-        (hero) => {
-          this.hero = hero;
-          this.heroes.push(hero);
-          if (!this.hero) {
-            this.modalRef = this.modalService.show(this.adviceModal, {
-              class: 'modal-sm',
-            });
-          }
-        }
-      );
-      this.findByName('green lantern').subscribe(
-        (hero) => {
-          this.hero = hero;
-          this.heroes.push(hero);
-          if (!this.hero) {
-            this.modalRef = this.modalService.show(this.adviceModal, {
-              class: 'modal-sm',
-            });
-          }
-        }
-      );
-    }
-    toggleHeroSelection(hero: Hero) {
-      if (this.selectedHeroes.includes(hero)) {
-        this.selectedHeroes = this.selectedHeroes.filter((h) => h !== hero);
-      } else {
-        this.selectedHeroes.push(hero);
-      }
-    }
+  }
+
+  getAll() {
+    this.heroes = this.heroService.getAll();
+  }
 
   findByName(name: string) {
     return this.heroService.findByName(name);
@@ -102,25 +69,8 @@ export class HeroComponent implements OnInit {
     return this.heroService.deleteById(this.hero.id);
   }
 
-  onSubmit() {
-    if (this.form_search.valid) {
-      this.findByName(this.form_search.controls['name'].value).subscribe(
-        (hero) => {
-          this.hero = hero;
-          this.heroes.push(hero);
-          if (!this.hero) {
-            this.modalRef = this.modalService.show(this.adviceModal, {
-              class: 'modal-sm',
-            });
-          }
-        }
-      );
-    } else {
-      alert('Fill all fields');
-    }
-  }
-
-  openConfirmation(template: TemplateRef<any>) {
+  openConfirmation(template: TemplateRef<any>, hero: Hero) {
+    this.hero = hero;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
