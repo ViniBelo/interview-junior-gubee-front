@@ -53,7 +53,7 @@ export class CreateHeroComponent {
     if (this.form_create.valid) {
       this.heroService.createHero(this.form_create.value);
       this.heroService.getAll();
-      this.router.navigateByUrl('');
+      this.router.navigate(['/']);
     } else {
       alert('Preencha todos os campos');
     }

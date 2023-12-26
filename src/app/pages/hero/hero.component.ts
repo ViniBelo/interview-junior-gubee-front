@@ -36,7 +36,7 @@ export class HeroComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService
   ) {
-    this.heroes = this.getAll();
+    this.heroes = this.getAll()!;
   }
 
   ngOnInit(): void {
